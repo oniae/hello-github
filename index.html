@@ -1,0 +1,525 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MZW Music - Music Player</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #101018;
+    color: white;
+}
+
+.container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 240px;
+    background: #171722;
+    padding: 25px;
+    position: fixed;
+    height: 100vh;
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: bold;
+    color: #1db954;
+    margin-bottom: 40px;
+}
+
+.sidebar h4 {
+    color: #888;
+    margin: 25px 0 15px;
+}
+
+.sidebar a {
+    display: block;
+    color: #ccc;
+    text-decoration: none;
+    padding: 13px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+}
+
+.sidebar a:hover {
+    background: #292938;
+    color: #1db954;
+}
+
+/* MAIN */
+.main {
+    margin-left: 240px;
+    width: calc(100% - 240px);
+    padding: 30px;
+    padding-bottom: 120px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 35px;
+}
+
+.search {
+    background: #252533;
+    padding: 13px 18px;
+    border-radius: 30px;
+    border: none;
+    color: white;
+    width: 300px;
+    outline: none;
+}
+
+.profile {
+    background: #1db954;
+    padding: 10px 18px;
+    border-radius: 25px;
+    color: black;
+    font-weight: bold;
+}
+
+.hero {
+    background: linear-gradient(120deg, #123c35, #20204c);
+    padding: 45px;
+    border-radius: 20px;
+    margin-bottom: 35px;
+}
+
+.hero h1 {
+    font-size: 38px;
+    margin-bottom: 15px;
+}
+
+.hero p {
+    color: #ddd;
+    margin-bottom: 20px;
+}
+
+.hero button {
+    background: #1db954;
+    border: none;
+    padding: 13px 25px;
+    border-radius: 25px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* SONG LIST */
+.section-title {
+    margin: 30px 0 20px;
+}
+
+.songs {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    gap: 20px;
+}
+
+.song {
+    background: #1b1b28;
+    padding: 15px;
+    border-radius: 15px;
+    transition: .3s;
+    cursor: pointer;
+}
+
+.song:hover {
+    background: #29293b;
+    transform: translateY(-5px);
+}
+
+.cover {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.song h3 {
+    margin: 12px 0 7px;
+    font-size: 16px;
+}
+
+.song p {
+    color: #999;
+    font-size: 13px;
+}
+
+.song button {
+    background: #1db954;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    margin-top: 12px;
+    cursor: pointer;
+    font-size: 17px;
+}
+
+/* MUSIC PLAYER */
+.player {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #20202c;
+    padding: 15px 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    border-top: 1px solid #333;
+}
+
+.now-playing {
+    width: 25%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.now-playing img {
+    width: 55px;
+    height: 55px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.controls {
+    text-align: center;
+    flex: 1;
+}
+
+.controls button {
+    background: none;
+    color: white;
+    border: none;
+    font-size: 22px;
+    margin: 0 10px;
+    cursor: pointer;
+}
+
+.controls .play {
+    background: #1db954;
+    color: black;
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+}
+
+.progress {
+    width: 100%;
+    max-width: 400px;
+    margin-top: 10px;
+    accent-color: #1db954;
+    cursor: pointer;
+}
+
+.volume {
+    width: 100px;
+    accent-color: #1db954;
+}
+
+@media(max-width: 700px) {
+    .sidebar {
+        display: none;
+    }
+
+    .main {
+        margin-left: 0;
+        width: 100%;
+        padding: 18px;
+        padding-bottom: 130px;
+    }
+
+    .header {
+        flex-wrap: wrap;
+    }
+
+    .search {
+        width: 100%;
+    }
+
+    .hero {
+        padding: 25px;
+    }
+
+    .hero h1 {
+        font-size: 27px;
+    }
+
+    .player {
+        padding: 10px;
+        flex-wrap: wrap;
+    }
+
+    .now-playing {
+        width: 100%;
+    }
+
+    .controls {
+        width: 100%;
+        flex: auto;
+    }
+
+    .volume {
+        display: none;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+    <div class="logo">♫ MZW MUSIC</div>
+
+    <h4>MENU</h4>
+    <a href="#">🏠 Home</a>
+    <a href="#lagu">🎵 Semua Lagu</a>
+    <a href="#playlist">📀 Playlist</a>
+    <a href="#">❤️ Favorit</a>
+
+    <h4>LIBRARY</h4>
+    <a href="#">🕒 Terakhir Diputar</a>
+    <a href="#">⬇ Download</a>
+</aside>
+
+<!-- MAIN CONTENT -->
+<main class="main">
+
+<header class="header">
+    <input type="text" class="search"
+    id="search" placeholder="Cari lagu atau penyanyi...">
+
+    <div class="profile">MZW User</div>
+</header>
+
+<section class="hero">
+    <h1>Music For Your Life 🎧</h1>
+    <p>Nikmati musik favoritmu kapan saja dan di mana saja.</p>
+    <button onclick="playSong(0)">▶ Putar Musik</button>
+</section>
+
+<h2 class="section-title" id="lagu">🔥 Lagu Populer</h2>
+
+<div class="songs" id="songList"></div>
+
+<h2 class="section-title" id="playlist">🎵 Playlist Kamu</h2>
+<div class="songs" id="playlistList"></div>
+
+</main>
+</div>
+
+<!-- MUSIC PLAYER -->
+<div class="player">
+
+    <div class="now-playing">
+        <img id="currentCover"
+        src="https://placehold.co/100x100/222/fff?text=Music">
+
+        <div>
+            <h4 id="currentTitle">Pilih Lagu</h4>
+            <p id="currentArtist">MZW Music</p>
+        </div>
+    </div>
+
+    <div class="controls">
+        <div>
+            <button onclick="previousSong()">⏮</button>
+            <button class="play" id="playBtn"
+            onclick="togglePlay()">▶</button>
+            <button onclick="nextSong()">⏭</button>
+        </div>
+
+        <input type="range" id="progress"
+        class="progress" value="0" min="0" max="100">
+        <div id="time">0:00 / 0:00</div>
+    </div>
+
+    <input type="range" id="volume"
+    class="volume" min="0" max="1" step="0.01" value="0.7">
+
+</div>
+
+<audio id="audio"></audio>
+
+<script>
+
+const songs = [
+{
+    title: "Dream Music",
+    artist: "Music Artist 1",
+    cover: "https://picsum.photos/300?random=1",
+    src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+},
+{
+    title: "Night Vibes",
+    artist: "Music Artist 2",
+    cover: "https://picsum.photos/300?random=2",
+    src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"
+},
+{
+    title: "Beautiful Life",
+    artist: "Music Artist 3",
+    cover: "https://picsum.photos/300?random=3",
+    src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"
+},
+{
+    title: "Relaxing Music",
+    artist: "Music Artist 4",
+    cover: "https://picsum.photos/300?random=4",
+    src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3"
+},
+{
+    title: "Happy Day",
+    artist: "Music Artist 5",
+    cover: "https://picsum.photos/300?random=5",
+    src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3"
+},
+{
+    title: "Love Story",
+    artist: "Music Artist 6",
+    cover: "https://picsum.photos/300?random=6",
+    src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3"
+}
+];
+
+const audio = document.getElementById("audio");
+let currentIndex = 0;
+
+function renderSongs(data = songs) {
+    const list = document.getElementById("songList");
+    list.innerHTML = "";
+
+    data.forEach((song) => {
+        const index = songs.indexOf(song);
+
+        list.innerHTML += `
+        <div class="song">
+            <img class="cover" src="${song.cover}">
+            <h3>${song.title}</h3>
+            <p>${song.artist}</p>
+            <button onclick="playSong(${index})">▶</button>
+        </div>`;
+    });
+}
+
+function renderPlaylist() {
+    document.getElementById("playlistList").innerHTML =
+    songs.slice(0, 3).map((song, i) => `
+        <div class="song">
+            <img class="cover" src="${song.cover}">
+            <h3>${song.title}</h3>
+            <p>${song.artist}</p>
+            <button onclick="playSong(${i})">▶</button>
+        </div>
+    `).join("");
+}
+
+function playSong(index) {
+    currentIndex = index;
+    const song = songs[index];
+
+    audio.src = song.src;
+    audio.play();
+
+    document.getElementById("currentTitle").textContent = song.title;
+    document.getElementById("currentArtist").textContent = song.artist;
+    document.getElementById("currentCover").src = song.cover;
+    document.getElementById("playBtn").textContent = "⏸";
+}
+
+function togglePlay() {
+    if (!audio.src) {
+        playSong(0);
+        return;
+    }
+
+    if (audio.paused) {
+        audio.play();
+        document.getElementById("playBtn").textContent = "⏸";
+    } else {
+        audio.pause();
+        document.getElementById("playBtn").textContent = "▶";
+    }
+}
+
+function nextSong() {
+    currentIndex = (currentIndex + 1) % songs.length;
+    playSong(currentIndex);
+}
+
+function previousSong() {
+    currentIndex = (currentIndex - 1 + songs.length) % songs.length;
+    playSong(currentIndex);
+}
+
+audio.addEventListener("timeupdate", () => {
+    if (audio.duration) {
+        const progress = document.getElementById("progress");
+        progress.value = (audio.currentTime / audio.duration) * 100;
+
+        document.getElementById("time").textContent =
+        formatTime(audio.currentTime) + " / " +
+        formatTime(audio.duration);
+    }
+});
+
+function formatTime(seconds) {
+    if (!Number.isFinite(seconds)) return "0:00";
+    const min = Math.floor(seconds / 60);
+    const sec = Math.floor(seconds % 60);
+    return min + ":" + String(sec).padStart(2, "0");
+}
+
+document.getElementById("progress").addEventListener("input", e => {
+    if (audio.duration) {
+        audio.currentTime = (e.target.value / 100) * audio.duration;
+    }
+});
+
+document.getElementById("volume").addEventListener("input", e => {
+    audio.volume = e.target.value;
+});
+
+audio.addEventListener("ended", nextSong);
+
+document.getElementById("search").addEventListener("input", e => {
+    const keyword = e.target.value.toLowerCase();
+
+    const filtered = songs.filter(song =>
+        song.title.toLowerCase().includes(keyword) ||
+        song.artist.toLowerCase().includes(keyword)
+    );
+
+    renderSongs(filtered);
+});
+
+audio.volume = 0.7;
+
+renderSongs();
+renderPlaylist();
+
+</script>
+
+</body>
+</html>
