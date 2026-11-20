@@ -4,281 +4,188 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MZW Music - Music Player</title>
+<title>Adventure Quest - The Lost Kingdom</title>
 
 <style>
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, sans-serif;
 }
 
 body {
-    background: #101018;
+    background: #101629;
     color: white;
-}
-
-.container {
-    display: flex;
+    font-family: Arial, sans-serif;
     min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
 }
 
-/* SIDEBAR */
-.sidebar {
-    width: 240px;
-    background: #171722;
-    padding: 25px;
-    position: fixed;
-    height: 100vh;
-}
-
-.logo {
-    font-size: 25px;
-    font-weight: bold;
-    color: #1db954;
-    margin-bottom: 40px;
-}
-
-.sidebar h4 {
-    color: #888;
-    margin: 25px 0 15px;
-}
-
-.sidebar a {
-    display: block;
-    color: #ccc;
-    text-decoration: none;
-    padding: 13px;
-    border-radius: 8px;
-    margin-bottom: 8px;
-}
-
-.sidebar a:hover {
-    background: #292938;
-    color: #1db954;
-}
-
-/* MAIN */
-.main {
-    margin-left: 240px;
-    width: calc(100% - 240px);
-    padding: 30px;
-    padding-bottom: 120px;
+.game-wrapper {
+    width: 100%;
+    max-width: 1000px;
 }
 
 .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 15px;
-    margin-bottom: 35px;
-}
-
-.search {
-    background: #252533;
-    padding: 13px 18px;
-    border-radius: 30px;
-    border: none;
-    color: white;
-    width: 300px;
-    outline: none;
-}
-
-.profile {
-    background: #1db954;
-    padding: 10px 18px;
-    border-radius: 25px;
-    color: black;
-    font-weight: bold;
-}
-
-.hero {
-    background: linear-gradient(120deg, #123c35, #20204c);
-    padding: 45px;
-    border-radius: 20px;
-    margin-bottom: 35px;
-}
-
-.hero h1 {
-    font-size: 38px;
     margin-bottom: 15px;
+    gap: 10px;
 }
 
-.hero p {
-    color: #ddd;
+.logo {
+    font-size: 23px;
+    font-weight: bold;
+    color: #f9cb56;
+}
+
+.header button, .action-btn {
+    border: none;
+    background: #f5bb42;
+    color: #172033;
+    padding: 10px 17px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.stat {
+    background: #202b45;
+    border: 1px solid #354361;
+    border-radius: 10px;
+    padding: 12px;
+    text-align: center;
+}
+
+.stat small {
+    display: block;
+    color: #9cabc7;
+    margin-bottom: 5px;
+}
+
+.stat strong {
+    color: #f8cf65;
+    font-size: 19px;
+}
+
+.game-area {
+    position: relative;
+    overflow: hidden;
+    border: 3px solid #42506c;
+    border-radius: 14px;
+    background: #172b46;
+}
+
+canvas {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(8, 15, 31, .88);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+    z-index: 5;
+}
+
+.overlay h1 {
+    color: #f8cf65;
+    font-size: clamp(28px, 6vw, 48px);
+    margin-bottom: 12px;
+}
+
+.overlay p {
+    color: #d2d9e8;
+    line-height: 1.7;
     margin-bottom: 20px;
 }
 
-.hero button {
-    background: #1db954;
+.overlay button {
+    background: #f5bd45;
+    color: #172033;
+    padding: 14px 30px;
     border: none;
-    padding: 13px 25px;
-    border-radius: 25px;
+    border-radius: 10px;
+    font-size: 16px;
     font-weight: bold;
     cursor: pointer;
 }
 
-/* SONG LIST */
-.section-title {
-    margin: 30px 0 20px;
+.overlay button:hover, .action-btn:hover {
+    background: #ffe08a;
 }
 
-.songs {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
-    gap: 20px;
-}
-
-.song {
-    background: #1b1b28;
-    padding: 15px;
-    border-radius: 15px;
-    transition: .3s;
-    cursor: pointer;
-}
-
-.song:hover {
-    background: #29293b;
-    transform: translateY(-5px);
-}
-
-.cover {
-    width: 100%;
-    aspect-ratio: 1;
-    object-fit: cover;
-    border-radius: 10px;
-}
-
-.song h3 {
-    margin: 12px 0 7px;
-    font-size: 16px;
-}
-
-.song p {
-    color: #999;
-    font-size: 13px;
-}
-
-.song button {
-    background: #1db954;
-    border: none;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    margin-top: 12px;
-    cursor: pointer;
-    font-size: 17px;
-}
-
-/* MUSIC PLAYER */
-.player {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background: #20202c;
-    padding: 15px 25px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 15px;
-    border-top: 1px solid #333;
-}
-
-.now-playing {
-    width: 25%;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.now-playing img {
-    width: 55px;
-    height: 55px;
-    border-radius: 8px;
-    object-fit: cover;
+.hidden {
+    display: none !important;
 }
 
 .controls {
-    text-align: center;
-    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 14px;
+    gap: 10px;
 }
 
-.controls button {
-    background: none;
+.control-group {
+    display: flex;
+    gap: 10px;
+}
+
+.control-btn {
+    width: 58px;
+    height: 52px;
+    border: 1px solid #526181;
+    background: #263450;
     color: white;
-    border: none;
-    font-size: 22px;
-    margin: 0 10px;
+    border-radius: 12px;
+    font-size: 23px;
     cursor: pointer;
+    touch-action: none;
 }
 
-.controls .play {
-    background: #1db954;
-    color: black;
-    border-radius: 50%;
-    width: 42px;
-    height: 42px;
+.control-btn:active {
+    background: #f5bd45;
+    color: #101629;
 }
 
-.progress {
-    width: 100%;
-    max-width: 400px;
-    margin-top: 10px;
-    accent-color: #1db954;
-    cursor: pointer;
+.info {
+    color: #a9b7d0;
+    font-size: 13px;
+    margin-top: 15px;
+    text-align: center;
 }
 
-.volume {
-    width: 100px;
-    accent-color: #1db954;
-}
-
-@media(max-width: 700px) {
-    .sidebar {
-        display: none;
+@media(max-width: 550px) {
+    .stats {
+        grid-template-columns: repeat(2, 1fr);
     }
 
-    .main {
-        margin-left: 0;
-        width: 100%;
-        padding: 18px;
-        padding-bottom: 130px;
+    .logo {
+        font-size: 17px;
     }
 
-    .header {
-        flex-wrap: wrap;
-    }
-
-    .search {
-        width: 100%;
-    }
-
-    .hero {
-        padding: 25px;
-    }
-
-    .hero h1 {
-        font-size: 27px;
-    }
-
-    .player {
-        padding: 10px;
-        flex-wrap: wrap;
-    }
-
-    .now-playing {
-        width: 100%;
-    }
-
-    .controls {
-        width: 100%;
-        flex: auto;
-    }
-
-    .volume {
-        display: none;
+    .control-btn {
+        width: 48px;
+        height: 48px;
     }
 }
 </style>
@@ -286,238 +193,716 @@ body {
 
 <body>
 
-<div class="container">
+<div class="game-wrapper">
 
-<!-- SIDEBAR -->
-<aside class="sidebar">
-    <div class="logo">♫ MZW MUSIC</div>
+    <div class="header">
+        <div class="logo">⚔ ADVENTURE QUEST</div>
+        <button onclick="togglePause()">Ⅱ PAUSE</button>
+    </div>
 
-    <h4>MENU</h4>
-    <a href="#">🏠 Home</a>
-    <a href="#lagu">🎵 Semua Lagu</a>
-    <a href="#playlist">📀 Playlist</a>
-    <a href="#">❤️ Favorit</a>
-
-    <h4>LIBRARY</h4>
-    <a href="#">🕒 Terakhir Diputar</a>
-    <a href="#">⬇ Download</a>
-</aside>
-
-<!-- MAIN CONTENT -->
-<main class="main">
-
-<header class="header">
-    <input type="text" class="search"
-    id="search" placeholder="Cari lagu atau penyanyi...">
-
-    <div class="profile">MZW User</div>
-</header>
-
-<section class="hero">
-    <h1>Music For Your Life 🎧</h1>
-    <p>Nikmati musik favoritmu kapan saja dan di mana saja.</p>
-    <button onclick="playSong(0)">▶ Putar Musik</button>
-</section>
-
-<h2 class="section-title" id="lagu">🔥 Lagu Populer</h2>
-
-<div class="songs" id="songList"></div>
-
-<h2 class="section-title" id="playlist">🎵 Playlist Kamu</h2>
-<div class="songs" id="playlistList"></div>
-
-</main>
-</div>
-
-<!-- MUSIC PLAYER -->
-<div class="player">
-
-    <div class="now-playing">
-        <img id="currentCover"
-        src="https://placehold.co/100x100/222/fff?text=Music">
-
-        <div>
-            <h4 id="currentTitle">Pilih Lagu</h4>
-            <p id="currentArtist">MZW Music</p>
+    <div class="stats">
+        <div class="stat">
+            <small>LEVEL</small>
+            <strong id="level">1 / 3</strong>
         </div>
+        <div class="stat">
+            <small>SKOR</small>
+            <strong id="score">0</strong>
+        </div>
+        <div class="stat">
+            <small>KOIN</small>
+            <strong id="coins">0 / 0</strong>
+        </div>
+        <div class="stat">
+            <small>NYAWA</small>
+            <strong id="lives">❤️❤️❤️</strong>
+        </div>
+    </div>
+
+    <div class="game-area">
+
+        <canvas id="game" width="960" height="540"></canvas>
+
+        <div class="overlay" id="startScreen">
+            <h1>ADVENTURE QUEST</h1>
+            <p>
+                THE LOST KINGDOM<br>
+                Jelajahi dunia misterius, kumpulkan koin,
+                dan kalahkan para penjaga kerajaan!
+            </p>
+            <button onclick="startGame()">▶ MULAI PETUALANGAN</button>
+        </div>
+
+        <div class="overlay hidden" id="pauseScreen">
+            <h1>GAME PAUSED</h1>
+            <p>Petualangan sedang dihentikan sementara.</p>
+            <button onclick="togglePause()">LANJUTKAN</button>
+        </div>
+
+        <div class="overlay hidden" id="endScreen">
+            <h1 id="endTitle">GAME OVER</h1>
+            <p id="endText">Petualangan telah berakhir.</p>
+            <button onclick="restartGame()">↻ MAIN LAGI</button>
+        </div>
+
     </div>
 
     <div class="controls">
-        <div>
-            <button onclick="previousSong()">⏮</button>
-            <button class="play" id="playBtn"
-            onclick="togglePlay()">▶</button>
-            <button onclick="nextSong()">⏭</button>
+        <div class="control-group">
+            <button class="control-btn" id="leftBtn">◀</button>
+            <button class="control-btn" id="rightBtn">▶</button>
         </div>
 
-        <input type="range" id="progress"
-        class="progress" value="0" min="0" max="100">
-        <div id="time">0:00 / 0:00</div>
+        <div class="control-group">
+            <button class="control-btn" id="jumpBtn">⬆</button>
+    </div>
     </div>
 
-    <input type="range" id="volume"
-    class="volume" min="0" max="1" step="0.01" value="0.7">
+    <div class="info">
+        Keyboard: A/D atau ←/→ untuk bergerak | SPACE untuk melompat | P untuk pause
+    </div>
 
 </div>
 
-<audio id="audio"></audio>
-
 <script>
+const canvas = document.getElementById("game");
+const ctx = canvas.getContext("2d");
 
-const songs = [
+const W = canvas.width;
+const H = canvas.height;
+
+let running = false;
+let paused = false;
+let finished = false;
+
+let level = 0;
+let score = 0;
+let lives = 3;
+let camera = 0;
+let lastTime = 0;
+let invincible = 0;
+
+let keys = {};
+let jumpPressed = false;
+let audioContext = null;
+
+const levels = [
 {
-    title: "Dream Music",
-    artist: "Music Artist 1",
-    cover: "https://picsum.photos/300?random=1",
-    src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+    name: "Forest Kingdom",
+    width: 1900,
+    ground: 455,
+    platforms: [
+        [0,455,420,85],
+        [490,455,270,85],
+        [830,455,300,85],
+        [1200,455,300,85],
+        [1570,455,330,85],
+        [240,360,130,18],
+        [550,355,130,18],
+        [900,350,140,18],
+        [1260,350,130,18]
+    ],
+    coins: [
+        [180,410],[290,320],[560,310],
+        [650,410],[930,305],[1080,410],
+        [1300,305],[1500,410],[1730,410]
+    ],
+    enemies: [[350,419],[650,419],[1030,419],[1650,419]],
+    spikes: [[770,438,45],[1130,438,45]],
+    portal: 1815
 },
 {
-    title: "Night Vibes",
-    artist: "Music Artist 2",
-    cover: "https://picsum.photos/300?random=2",
-    src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"
+    name: "Desert Ruins",
+    width: 2100,
+    ground: 455,
+    platforms: [
+        [0,455,300,85],
+        [370,455,300,85],
+        [740,455,250,85],
+        [1060,455,320,85],
+        [1450,455,270,85],
+        [1790,455,310,85],
+        [180,350,120,18],
+        [480,330,140,18],
+        [850,350,130,18],
+        [1160,330,150,18],
+        [1520,340,120,18]
+    ],
+    coins: [
+        [120,410],[220,300],[490,280],
+        [610,410],[870,300],[1150,280],
+        [1280,410],[1550,290],[1870,410],[1990,410]
+    ],
+    enemies: [[230,419],[570,419],[900,419],[1260,419],[1870,419]],
+    spikes: [[310,438,55],[680,438,50],[1385,438,55]],
+    portal: 2015
 },
 {
-    title: "Beautiful Life",
-    artist: "Music Artist 3",
-    cover: "https://picsum.photos/300?random=3",
-    src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"
-},
-{
-    title: "Relaxing Music",
-    artist: "Music Artist 4",
-    cover: "https://picsum.photos/300?random=4",
-    src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3"
-},
-{
-    title: "Happy Day",
-    artist: "Music Artist 5",
-    cover: "https://picsum.photos/300?random=5",
-    src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3"
-},
-{
-    title: "Love Story",
-    artist: "Music Artist 6",
-    cover: "https://picsum.photos/300?random=6",
-    src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3"
+    name: "Dark Castle",
+    width: 2300,
+    ground: 455,
+    platforms: [
+        [0,455,350,85],
+        [420,455,250,85],
+        [740,455,280,85],
+        [1090,455,250,85],
+        [1410,455,300,85],
+        [1780,455,220,85],
+        [2070,455,230,85],
+        [190,340,130,18],
+        [500,310,130,18],
+        [820,340,130,18],
+        [1160,300,130,18],
+        [1500,330,140,18],
+        [1830,300,130,18]
+    ],
+    coins: [
+        [100,410],[220,290],[540,260],
+        [600,410],[850,290],[1200,250],
+        [1300,410],[1550,280],[1850,250],
+        [1930,410],[2150,410]
+    ],
+    enemies: [[250,419],[560,419],[850,419],[1240,419],[1600,419],[2150,419]],
+    spikes: [[350,438,55],[680,438,50],[1030,438,55],[1715,438,60],[2010,438,50]],
+    portal: 2220
 }
 ];
 
-const audio = document.getElementById("audio");
-let currentIndex = 0;
+let world;
+let player;
+let coins = [];
+let enemies = [];
 
-function renderSongs(data = songs) {
-    const list = document.getElementById("songList");
-    list.innerHTML = "";
+function newPlayer() {
+    return {
+        x: 60,
+        y: 380,
+        w: 32,
+        h: 45,
+        vx: 0,
+        vy: 0,
+        speed: 4,
+        jump: -12.5,
+        grounded: false
+    };
+}
 
-    data.forEach((song) => {
-        const index = songs.indexOf(song);
+function loadLevel(index) {
+    world = levels[index];
+    player = newPlayer();
+    camera = 0;
+    invincible = 0;
 
-        list.innerHTML += `
-        <div class="song">
-            <img class="cover" src="${song.cover}">
-            <h3>${song.title}</h3>
-            <p>${song.artist}</p>
-            <button onclick="playSong(${index})">▶</button>
-        </div>`;
+    coins = world.coins.map(c => ({
+        x: c[0], y: c[1],
+        collected: false,
+        phase: Math.random() * 6
+    }));
+
+    enemies = world.enemies.map(e => ({
+        x: e[0],
+        y: e[1],
+        start: e[0],
+        direction: 1,
+        speed: 1.1 + index * .3,
+        alive: true
+    }));
+
+    updateHUD();
+}
+
+function updateHUD() {
+    document.getElementById("level").textContent = (level+1)+" / 3";
+    document.getElementById("score").textContent = score;
+    document.getElementById("coins").textContent =
+        coins.filter(c=>c.collected).length+" / "+coins.length;
+    document.getElementById("lives").textContent =
+        "❤️".repeat(lives);
+}
+
+function startGame() {
+    initAudio();
+    score = 0;
+    lives = 3;
+    level = 0;
+    finished = false;
+    paused = false;
+    loadLevel(level);
+
+    document.getElementById("startScreen").classList.add("hidden");
+    document.getElementById("endScreen").classList.add("hidden");
+    document.getElementById("pauseScreen").classList.add("hidden");
+
+    running = true;
+    lastTime = performance.now();
+    requestAnimationFrame(loop);
+}
+
+function restartGame() {
+    startGame();
+}
+
+function togglePause() {
+    if (!running || finished) return;
+
+    paused = !paused;
+    document.getElementById("pauseScreen").classList.toggle("hidden", !paused);
+
+    if (!paused) {
+        lastTime = performance.now();
+        requestAnimationFrame(loop);
+    }
+}
+
+// SOUND
+function initAudio() {
+    if (!audioContext) {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (AudioCtx) audioContext = new AudioCtx();
+    }
+    if (audioContext?.state === "suspended") audioContext.resume();
+}
+
+function sound(freq=500, duration=.12, type="sine") {
+    if (!audioContext) return;
+    const osc = audioContext.createOscillator();
+    const gain = audioContext.createGain();
+
+    osc.type = type;
+    osc.frequency.value = freq;
+    gain.gain.setValueAtTime(.08, audioContext.currentTime);
+    gain.gain.exponentialRampToValueAtTime(
+        .001, audioContext.currentTime+duration
+    );
+
+    osc.connect(gain);
+    gain.connect(audioContext.destination);
+    osc.start();
+    osc.stop(audioContext.currentTime+duration);
+}
+
+// INPUT
+document.addEventListener("keydown", e => {
+    if (["ArrowLeft","ArrowRight","ArrowUp","Space"].includes(e.code))
+        e.preventDefault();
+
+    keys[e.code] = true;
+
+    if (!e.repeat && ["Space","ArrowUp","KeyW"].includes(e.code))
+        jumpPressed = true;
+
+    if (!e.repeat && e.code === "KeyP")
+        togglePause();
+
+    if (!e.repeat && e.code === "KeyR")
+        restartGame();
+});
+
+document.addEventListener("keyup", e => {
+    keys[e.code] = false;
+});
+
+function bindButton(id, key) {
+    const btn = document.getElementById(id);
+    btn.addEventListener("pointerdown", e => {
+        e.preventDefault();
+        keys[key] = true;
+        if (key === "Space") jumpPressed = true;
+        btn.setPointerCapture(e.pointerId);
     });
+
+    const release = e => {
+        e.preventDefault();
+        keys[key] = false;
+    };
+
+    btn.addEventListener("pointerup", release);
+    btn.addEventListener("pointercancel", release);
+    btn.addEventListener("lostpointercapture", release);
 }
 
-function renderPlaylist() {
-    document.getElementById("playlistList").innerHTML =
-    songs.slice(0, 3).map((song, i) => `
-        <div class="song">
-            <img class="cover" src="${song.cover}">
-            <h3>${song.title}</h3>
-            <p>${song.artist}</p>
-            <button onclick="playSong(${i})">▶</button>
-        </div>
-    `).join("");
+bindButton("leftBtn","ArrowLeft");
+bindButton("rightBtn","ArrowRight");
+bindButton("jumpBtn","Space");
+
+// PHYSICS
+function update(dt) {
+    const step = Math.min(dt, 2);
+
+    let direction = 0;
+    if (keys.ArrowLeft || keys.KeyA) direction--;
+    if (keys.ArrowRight || keys.KeyD) direction++;
+
+    player.vx = direction * player.speed;
+    player.x += player.vx * step;
+
+    if (jumpPressed && player.grounded) {
+        player.vy = player.jump;
+        player.grounded = false;
+        sound(420,.1);
+    }
+    jumpPressed = false;
+
+    player.vy += .55 * step;
+    player.vy = Math.min(player.vy, 14);
+    player.y += player.vy * step;
+
+    player.grounded = false;
+
+    // PLATFORM COLLISION
+    for (const p of world.platforms) {
+        const [x,y,w,h] = p;
+
+        if (
+            player.x + player.w > x &&
+            player.x < x+w &&
+            player.y + player.h > y &&
+            player.y + player.h < y+h+15 &&
+            player.vy >= 0 &&
+            player.y + player.h - player.vy*step <= y+12
+        ) {
+            player.y = y-player.h;
+            player.vy = 0;
+            player.grounded = true;
+        }
+    }
+
+    // WORLD BOUNDARY
+    player.x = Math.max(0,Math.min(world.width-player.w,player.x));
+
+    // COINS
+    for (const c of coins) {
+        if (!c.collected &&
+            player.x < c.x+14 &&
+            player.x+player.w > c.x-14 &&
+            player.y < c.y+14 &&
+            player.y+player.h > c.y-14) {
+
+            c.collected = true;
+            score += 10;
+            sound(850,.13);
+            updateHUD();
+        }
+    }
+
+    // ENEMIES
+    for (const e of enemies) {
+        if (!e.alive) continue;
+
+        e.x += e.direction * e.speed * step;
+
+        if (Math.abs(e.x-e.start)>75) e.direction *= -1;
+
+        const hit =
+            player.x < e.x+30 &&
+            player.x+player.w > e.x &&
+            player.y < e.y+32 &&
+            player.y+player.h > e.y;
+
+        if (hit) {
+            if (player.vy > 1 && player.y+player.h < e.y+20) {
+                e.alive = false;
+                player.vy = -9;
+                score += 25;
+                sound(220,.2,"square");
+                updateHUD();
+            } else if (invincible <= 0) {
+                takeDamage();
+            }
+        }
+    }
+
+    // SPIKES
+    for (const s of world.spikes) {
+        if (
+            player.x < s[0]+s[2] &&
+            player.x+player.w > s[0] &&
+            player.y+player.h > s[1]
+        ) {
+            if (invincible <= 0) takeDamage();
+        }
+    }
+
+    if (invincible > 0) invincible -= step;
+
+    // FALL INTO HOLE
+    if (player.y > H+100) takeDamage(true);
+
+    // PORTAL
+    const collected = coins.every(c=>c.collected);
+    if (
+        collected &&
+        player.x+player.w > world.portal &&
+        player.x < world.portal+60
+    ) {
+        nextLevel();
+    }
+
+    // CAMERA
+    camera = Math.max(0,Math.min(
+        world.width-W,
+        player.x-W*.35
+    ));
 }
 
-function playSong(index) {
-    currentIndex = index;
-    const song = songs[index];
+function takeDamage(fall=false) {
+    if (!fall && invincible>0) return;
 
-    audio.src = song.src;
-    audio.play();
+    lives--;
+    updateHUD();
+    sound(120,.3,"sawtooth");
 
-    document.getElementById("currentTitle").textContent = song.title;
-    document.getElementById("currentArtist").textContent = song.artist;
-    document.getElementById("currentCover").src = song.cover;
-    document.getElementById("playBtn").textContent = "⏸";
-}
-
-function togglePlay() {
-    if (!audio.src) {
-        playSong(0);
+    if (lives<=0) {
+        endGame(false);
         return;
     }
 
-    if (audio.paused) {
-        audio.play();
-        document.getElementById("playBtn").textContent = "⏸";
+    player = newPlayer();
+    invincible = 100;
+}
+
+function nextLevel() {
+    score += 100;
+    sound(950,.3);
+
+    if (level < levels.length-1) {
+        level++;
+        loadLevel(level);
     } else {
-        audio.pause();
-        document.getElementById("playBtn").textContent = "▶";
+        endGame(true);
     }
 }
 
-function nextSong() {
-    currentIndex = (currentIndex + 1) % songs.length;
-    playSong(currentIndex);
+function endGame(win) {
+    running = false;
+    finished = true;
+
+    document.getElementById("endTitle").textContent =
+        win ? "🏆 YOU WIN!" : "GAME OVER";
+
+    document.getElementById("endText").innerHTML =
+        (win ? "Selamat! Kamu berhasil menyelamatkan kerajaan!" :
+        "Jangan menyerah! Coba lagi petualanganmu!") +
+        "<br>Skor akhir: <b>"+score+"</b>";
+
+    document.getElementById("endScreen").classList.remove("hidden");
 }
 
-function previousSong() {
-    currentIndex = (currentIndex - 1 + songs.length) % songs.length;
-    playSong(currentIndex);
+// DRAWING
+function rect(x,y,w,h,color) {
+    ctx.fillStyle = color;
+    ctx.fillRect(x,y,w,h);
 }
 
-audio.addEventListener("timeupdate", () => {
-    if (audio.duration) {
-        const progress = document.getElementById("progress");
-        progress.value = (audio.currentTime / audio.duration) * 100;
+function drawBackground() {
+    let gradient = ctx.createLinearGradient(0,0,0,H);
 
-        document.getElementById("time").textContent =
-        formatTime(audio.currentTime) + " / " +
-        formatTime(audio.duration);
+    if(level===0) {
+        gradient.addColorStop(0,"#163b65");
+        gradient.addColorStop(1,"#6aa77b");
+    } else if(level===1) {
+        gradient.addColorStop(0,"#f3a34b");
+        gradient.addColorStop(1,"#8b4c38");
+    } else {
+        gradient.addColorStop(0,"#11182e");
+        gradient.addColorStop(1,"#49355f");
     }
-});
 
-function formatTime(seconds) {
-    if (!Number.isFinite(seconds)) return "0:00";
-    const min = Math.floor(seconds / 60);
-    const sec = Math.floor(seconds % 60);
-    return min + ":" + String(sec).padStart(2, "0");
+    ctx.fillStyle=gradient;
+    ctx.fillRect(0,0,W,H);
+
+    // Stars
+    for(let i=0;i<55;i++){
+        const x=(i*173-camera*.12)%W;
+        const y=(i*67)%260;
+        ctx.fillStyle="rgba(255,255,255,.5)";
+        ctx.fillRect(x<0?x+W:x,y,2,2);
+    }
+
+    // Mountains
+    for(let i=0;i<8;i++){
+        let x=(i*210-camera*.25)%1100;
+        ctx.fillStyle=level===2?"#252c49":
+                      level===1?"#b76c43":"#315b68";
+        ctx.beginPath();
+        ctx.moveTo(x-50,455);
+        ctx.lineTo(x+75,210+(i%3)*30);
+        ctx.lineTo(x+210,455);
+        ctx.fill();
+    }
+
+    // Clouds
+    ctx.fillStyle="rgba(255,255,255,.18)";
+    for(let i=0;i<6;i++){
+        let x=(i*240-camera*.45)%1100;
+        ctx.beginPath();
+        ctx.arc(x<0?x+W:x,100+i%3*45,24,0,Math.PI*2);
+        ctx.arc((x+28)%W,100+i%3*45,30,0,Math.PI*2);
+        ctx.arc((x+58)%W,100+i%3*45,22,0,Math.PI*2);
+        ctx.fill();
+    }
 }
 
-document.getElementById("progress").addEventListener("input", e => {
-    if (audio.duration) {
-        audio.currentTime = (e.target.value / 100) * audio.duration;
+function drawPlatforms() {
+    for(const p of world.platforms) {
+        let x=p[0]-camera;
+        if(x>W || x+p[2]<0) continue;
+
+        rect(x,p[1],p[2],p[3],level===2?"#44435c":
+             level===1?"#a66b43":"#704b35");
+
+        rect(x,p[1],p[2],9,level===2?"#9b6e63":
+             level===1?"#e2ad5c":"#63b85c");
+
+        for(let i=0;i<p[2];i+=35){
+            rect(x+i,p[1]+15,18,4,"rgba(0,0,0,.12)");
+        }
     }
-});
+}
 
-document.getElementById("volume").addEventListener("input", e => {
-    audio.volume = e.target.value;
-});
+function drawCoins(time) {
+    for(const c of coins) {
+        if(c.collected) continue;
 
-audio.addEventListener("ended", nextSong);
+        let x=c.x-camera;
+        let y=c.y+Math.sin(time*.005+c.phase)*5;
 
-document.getElementById("search").addEventListener("input", e => {
-    const keyword = e.target.value.toLowerCase();
+        ctx.fillStyle="#f6b92e";
+        ctx.beginPath();
+        ctx.arc(x,y,10,0,Math.PI*2);
+        ctx.fill();
 
-    const filtered = songs.filter(song =>
-        song.title.toLowerCase().includes(keyword) ||
-        song.artist.toLowerCase().includes(keyword)
-    );
+        ctx.strokeStyle="#ffe58a";
+        ctx.lineWidth=3;
+        ctx.stroke();
 
-    renderSongs(filtered);
-});
+        rect(x-2,y-6,4,12,"#fff1a5");
+    }
+}
 
-audio.volume = 0.7;
+function drawEnemies() {
+    for(const e of enemies) {
+        if(!e.alive) continue;
 
-renderSongs();
-renderPlaylist();
+        let x=e.x-camera;
+
+        rect(x,e.y,30,28,"#b73545");
+        rect(x+5,e.y-5,20,12,"#e85a56");
+        rect(x+6,e.y+8,5,5,"white");
+        rect(x+19,e.y+8,5,5,"white");
+        rect(x+8,e.y+10,3,3,"black");
+        rect(x+21,e.y+10,3,3,"black");
+        rect(x+3,e.y+27,8,7,"#272238");
+        rect(x+20,e.y+27,8,7,"#272238");
+    }
+}
+
+function drawSpikes() {
+    for(const s of world.spikes) {
+        let x=s[0]-camera;
+
+        ctx.fillStyle="#d8e0eb";
+        for(let i=0;i<s[2];i+=15) {
+            ctx.beginPath();
+            ctx.moveTo(x+i,s[1]+18);
+            ctx.lineTo(x+i+7,s[1]);
+            ctx.lineTo(x+i+15,s[1]+18);
+            ctx.fill();
+        }
+    }
+}
+
+function drawPortal(time) {
+    if(!coins.every(c=>c.collected)) return;
+
+    let x=world.portal-camera;
+
+    ctx.strokeStyle="#76f5dc";
+    ctx.lineWidth=6;
+    ctx.beginPath();
+    ctx.ellipse(x+25,410,24,38,0,0,Math.PI*2);
+    ctx.stroke();
+
+    ctx.fillStyle="rgba(73,235,213,.3)";
+    ctx.beginPath();
+    ctx.ellipse(x+25,410,20,34,0,0,Math.PI*2);
+    ctx.fill();
+
+    ctx.fillStyle="white";
+    ctx.font="15px Arial";
+    ctx.fillText("ENTER",x-4,360);
+}
+
+function drawPlayer() {
+    if(invincible>0 && Math.floor(invincible/5)%2===0) return;
+
+    let x=player.x-camera;
+    let y=player.y;
+
+    // Shadow
+    ctx.fillStyle="rgba(0,0,0,.25)";
+    ctx.beginPath();
+    ctx.ellipse(x+16,y+45,19,5,0,0,Math.PI*2);
+    ctx.fill();
+
+    // Body
+    rect(x+5,y+14,23,25,"#267bd1");
+
+    // Head
+    rect(x+5,y,23,18,"#f2bd91");
+
+    // Hair
+    rect(x+4,y-3,24,8,"#49352c");
+    rect(x+3,y+3,5,8,"#49352c");
+
+    // Eyes
+    rect(x+21,y+7,3,4,"#1c2638");
+
+    // Scarf
+    rect(x+5,y+15,24,5,"#db434a");
+
+    // Belt
+    rect(x+5,y+34,23,4,"#e4b650");
+
+    // Legs
+    rect(x+7,y+39,8,6,"#27334e");
+    rect(x+20,y+39,8,6,"#27334e");
+}
+
+function drawWorld(time) {
+    drawBackground();
+    drawPlatforms();
+    drawSpikes();
+    drawCoins(time);
+    drawEnemies();
+    drawPortal(time);
+    drawPlayer();
+
+    // Level name
+    ctx.fillStyle="rgba(0,0,0,.35)";
+    ctx.fillRect(15,15,190,35);
+    ctx.fillStyle="white";
+    ctx.font="bold 16px Arial";
+    ctx.fillText(world.name,27,38);
+}
+
+// MAIN LOOP
+function loop(time) {
+    if(!running || paused) return;
+
+    let dt=Math.min((time-lastTime)/16.67,2);
+    lastTime=time;
+
+    update(dt);
+
+    ctx.clearRect(0,0,W,H);
+    drawWorld(time);
+
+    if(running && !paused) requestAnimationFrame(loop);
+}
+
+loadLevel(0);
+drawWorld(0);
 
 </script>
 
