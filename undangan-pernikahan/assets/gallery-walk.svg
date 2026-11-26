@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500" role="img" aria-label="Editorial Architectural Colonnade">
+  <rect width="800" height="500" fill="#EAE6DD"/>
+  <rect x="24" y="24" width="752" height="452" fill="none" stroke="#141413" stroke-opacity="0.2" stroke-width="1"/>
+  <!-- Perspective Colonnade -->
+  <rect x="80" y="90" width="120" height="320" fill="#F7F5F0" stroke="#141413" stroke-opacity="0.18"/>
+  <rect x="240" y="120" width="96" height="260" fill="#F7F5F0" stroke="#141413" stroke-opacity="0.18"/>
+  <rect x="372" y="145" width="78" height="210" fill="#F7F5F0" stroke="#141413" stroke-opacity="0.18"/>
+  <rect x="484" y="165" width="62" height="170" fill="#F7F5F0" stroke="#141413" stroke-opacity="0.18"/>
+  <line x1="60" y1="410" x2="740" y2="410" stroke="#141413" stroke-opacity="0.35" stroke-width="1"/>
+  <!-- Sunbeams -->
+  <polygon points="200,90 360,410 470,410 240,90" fill="#FFFFFF" opacity="0.45"/>
+  <polygon points="336,120 510,410 590,410 372,120" fill="#FFFFFF" opacity="0.32"/>
+  <!-- Editorial Typography -->
+  <text x="640" y="220" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="38" fill="#141413">Quiet</text>
+  <text x="640" y="264" text-anchor="middle" font-family="Georgia, serif" font-size="38" fill="#141413">Afternoon</text>
+  <line x1="585" y1="286" x2="695" y2="286" stroke="#8C7A6B" stroke-width="1"/>
+  <text x="640" y="310" text-anchor="middle" font-family="monospace" font-size="11" letter-spacing="3" fill="#68655E">KOTA TUA, JAKARTA</text>
+</svg>

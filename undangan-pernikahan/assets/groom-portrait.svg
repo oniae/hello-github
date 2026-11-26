@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" width="600" height="800" role="img" aria-label="Groom Editorial Portrait Plate">
+  <rect width="600" height="800" fill="#E9E5DC"/>
+  <rect x="26" y="26" width="548" height="748" fill="none" stroke="#141413" stroke-opacity="0.18" stroke-width="1"/>
+  <rect x="85" y="95" width="430" height="530" fill="#DFDAD0" stroke="#141413" stroke-opacity="0.15"/>
+  <!-- Minimalist Silhouette -->
+  <circle cx="300" cy="250" r="46" fill="#141413"/>
+  <path d="M200 625 C200 455 235 338 300 338 C365 338 400 455 400 625 Z" fill="#141413"/>
+  <!-- White Collar V-Shape -->
+  <polygon points="274,338 326,338 300,425" fill="#F7F5F0"/>
+  <text x="300" y="685" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="30" fill="#141413">Arka Pratama</text>
+  <text x="300" y="715" text-anchor="middle" font-family="monospace" font-size="11" letter-spacing="3" fill="#68655E">THE GROOM &mdash; PLATE 05</text>
+</svg>

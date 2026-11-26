@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" width="600" height="800" role="img" aria-label="Editorial Couple Arch Illustration">
+  <defs>
+    <linearGradient id="bgHero" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ECE8E0"/>
+      <stop offset="100%" stop-color="#DED8CC"/>
+    </linearGradient>
+    <linearGradient id="shadowArch" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#141413" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#141413" stop-opacity="0.02"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="800" fill="url(#bgHero)"/>
+  <rect x="28" y="28" width="544" height="744" fill="none" stroke="#141413" stroke-opacity="0.22" stroke-width="1"/>
+  <!-- Architectural Archway -->
+  <path d="M120 720 V340 A180 180 0 0 1 480 340 V720 Z" fill="#F7F5F0" stroke="#141413" stroke-opacity="0.25" stroke-width="1"/>
+  <path d="M150 720 V350 A150 150 0 0 1 450 350 V720 Z" fill="url(#shadowArch)"/>
+  <!-- Sun / Halo Circle -->
+  <circle cx="300" cy="285" r="76" fill="none" stroke="#8C7A6B" stroke-width="1.2"/>
+  <circle cx="300" cy="285" r="52" fill="#E6E0D5" opacity="0.65"/>
+  <!-- Abstract Minimalist Couple Silhouettes -->
+  <path d="M235 720 C235 580 250 480 272 440 C282 422 276 392 260 392 C244 392 238 418 248 438 C222 478 205 580 205 720 Z" fill="#141413"/>
+  <circle cx="261" cy="364" r="22" fill="#141413"/>
+  <path d="M322 720 C322 575 335 485 352 448 C360 430 354 402 340 402 C326 402 320 426 328 446 C308 488 296 580 292 720 Z" fill="#2F2E2B"/>
+  <path d="M342 444 C368 485 384 585 390 720 L318 720 C324 585 332 485 342 444 Z" fill="#FFFFFF" stroke="#141413" stroke-width="1.2"/>
+  <circle cx="342" cy="376" r="20" fill="#2F2E2B"/>
+  <!-- Fine Botanical Stem -->
+  <path d="M145 640 Q210 560 220 450" fill="none" stroke="#8C7A6B" stroke-width="1.2"/>
+  <ellipse cx="188" cy="542" rx="16" ry="5" transform="rotate(-35 188 542)" fill="none" stroke="#8C7A6B" stroke-width="1"/>
+  <ellipse cx="206" cy="495" rx="14" ry="4" transform="rotate(-55 206 495)" fill="none" stroke="#8C7A6B" stroke-width="1"/>
+  <!-- Editorial Plate Caption -->
+  <text x="54" y="72" font-family="monospace" font-size="12" letter-spacing="3" fill="#68655E">PLATE 01 / ARCHIVE</text>
+  <text x="546" y="72" text-anchor="end" font-family="monospace" font-size="12" letter-spacing="3" fill="#68655E">20 . 12 . 2026</text>
+  <text x="300" y="756" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="18" fill="#141413">Arka &amp; Nadia — Editorial Portrait</text>
+</svg>

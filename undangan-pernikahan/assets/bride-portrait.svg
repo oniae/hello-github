@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" width="600" height="800" role="img" aria-label="Bride Editorial Portrait Plate">
+  <rect width="600" height="800" fill="#F3F0EA"/>
+  <rect x="26" y="26" width="548" height="748" fill="none" stroke="#141413" stroke-opacity="0.18" stroke-width="1"/>
+  <rect x="85" y="95" width="430" height="530" fill="#E7E2D8" stroke="#141413" stroke-opacity="0.15"/>
+  <!-- Minimalist Silhouette -->
+  <circle cx="300" cy="260" r="46" fill="#2A2927"/>
+  <path d="M262 246 C262 212 338 212 338 246" fill="#141413"/>
+  <path d="M225 625 C225 465 258 345 300 345 C342 345 375 465 375 625 Z" fill="#FFFFFF" stroke="#141413" stroke-width="1.4"/>
+  <path d="M270 355 Q300 385 330 355" fill="none" stroke="#141413" stroke-width="1.2"/>
+  <text x="300" y="685" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="30" fill="#141413">Nadia Larasati</text>
+  <text x="300" y="715" text-anchor="middle" font-family="monospace" font-size="11" letter-spacing="3" fill="#68655E">THE BRIDE &mdash; PLATE 04</text>
+</svg>
