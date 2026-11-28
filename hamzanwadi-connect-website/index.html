@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#1f41bb">
+  <title>Hamzanwadi Connect</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="authView" class="auth-wrap">
+    <div class="auth-art">
+      <div class="brand brand-light"><span class="brand-mark">H</span><span>Hamzanwadi<br><b>Connect</b></span></div>
+      <div class="art-copy">
+        <span class="eyebrow">UNIVERSITAS HAMZANWADI</span>
+        <h1>Satu pintu untuk<br>semua layanan kampus.</h1>
+        <p>Akses informasi akademik, jadwal kuliah, nilai, surat, dan pembayaran dalam satu tempat.</p>
+      </div>
+      <div class="art-orb orb-one"></div><div class="art-orb orb-two"></div>
+      <div class="art-footer">HAMZANWADI CONNECT · 2026</div>
+    </div>
+    <main class="auth-panel">
+      <div class="auth-mobile-brand brand"><span class="brand-mark">H</span><span>Hamzanwadi<br><b>Connect</b></span></div>
+      <section id="loginForm" class="auth-card">
+        <div class="auth-heading"><span class="eyebrow blue">SELAMAT DATANG</span><h2>Masuk ke akun</h2><p>Silakan masuk untuk mengakses layanan akademik.</p></div>
+        <form id="loginFormEl">
+          <label>Email atau NIM<input id="loginId" required placeholder="Masukkan email atau NIM" autocomplete="username"></label>
+          <label>Kata sandi<div class="password-wrap"><input id="loginPass" type="password" required placeholder="Masukkan kata sandi" autocomplete="current-password"><button type="button" class="eye" data-toggle="loginPass">Lihat</button></div></label>
+          <div class="form-meta"><label class="check"><input type="checkbox"> Ingat saya</label><a href="#" id="forgotLink">Lupa kata sandi?</a></div>
+          <button class="btn primary full" type="submit">Masuk <span>→</span></button>
+        </form>
+        <p class="auth-switch">Belum memiliki akun? <a href="#" id="showRegister">Daftar sekarang</a></p>
+        <div class="demo-note">Demo: isi email/NIM dan kata sandi apa saja untuk masuk.</div>
+      </section>
+      <section id="registerForm" class="auth-card hidden">
+        <div class="auth-heading"><span class="eyebrow blue">AKUN BARU</span><h2>Daftar akun</h2><p>Buat akun untuk mengakses seluruh layanan akademik.</p></div>
+        <form id="registerFormEl">
+          <label>Nama lengkap<input required placeholder="Nama lengkap"></label>
+          <label>NIM<input required placeholder="Nomor induk mahasiswa"></label>
+          <label>Email kampus<input type="email" required placeholder="nama@email.com"></label>
+          <label>Kata sandi<input type="password" required minlength="4" placeholder="Buat kata sandi"></label>
+          <button class="btn primary full" type="submit">Buat akun <span>→</span></button>
+        </form>
+        <p class="auth-switch">Sudah memiliki akun? <a href="#" id="showLogin">Masuk</a></p>
+      </section>
+    </main>
+  </div>
+
+  <div id="appView" class="app-shell hidden">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand"><span class="brand-mark">H</span><span>Hamzanwadi<br><b>Connect</b></span></div>
+      <div class="side-label">MENU UTAMA</div>
+      <nav id="sideNav">
+        <button class="nav-item active" data-page="home"><span class="nav-icon">⌂</span>Beranda</button>
+        <button class="nav-item" data-page="schedule"><span class="nav-icon">▦</span>Jadwal Kuliah</button>
+        <button class="nav-item" data-page="grades"><span class="nav-icon">▤</span>Nilai Akademik</button>
+        <button class="nav-item" data-page="letters"><span class="nav-icon">✉</span>Pengajuan Surat</button>
+        <button class="nav-item" data-page="payments"><span class="nav-icon">▣</span>Pembayaran UKT</button>
+        <button class="nav-item" data-page="profile"><span class="nav-icon">◎</span>Profil Pengguna</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="help-card"><div class="help-icon">?</div><b>Butuh bantuan?</b><p>Hubungi layanan akademik kampus.</p><a href="mailto:akademik@hamzanwadi.ac.id">Hubungi kami ↗</a></div>
+        <button class="logout" id="logoutBtn">↪ <span>Keluar</span></button>
+      </div>
+    </aside>
+    <main class="main-area">
+      <header class="topbar">
+        <button class="mobile-menu" id="menuBtn" aria-label="Buka menu">☰</button>
+        <div class="breadcrumb">Hamzanwadi Connect <span>/</span> <b id="crumb">Beranda</b></div>
+        <div class="top-actions"><button class="icon-button" id="notifBtn" aria-label="Notifikasi">♧<i></i></button><div class="user-mini"><div class="avatar">MZ</div><div><b id="topUser">Mahasiswa</b><small>Mahasiswa</small></div></div></div>
+      </header>
+      <div class="page-content" id="pageContent"></div>
+      <footer class="app-footer">© 2026 Universitas Hamzanwadi · Hamzanwadi Connect</footer>
+    </main>
+  </div>
+  <div id="toast" class="toast" role="status"></div>
+  <script src="app.js"></script>
+</body>
+</html>
